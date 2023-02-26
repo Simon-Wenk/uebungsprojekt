@@ -1,0 +1,17 @@
+version: '1'
+  
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy:latest
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    environment:
+      - DEFAULT_HOST=proxy.example
+  webserver:
+    image: simon8wenk/webserver:v1
+    ports:
+      - "6969:3000"
+    environment:
+      - VIRTUAL_HOST=proxy.example
